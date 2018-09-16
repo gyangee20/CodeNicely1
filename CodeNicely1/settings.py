@@ -78,13 +78,28 @@ WSGI_APPLICATION = 'CodeNicely1.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'codenicely',
+        'NAME': 'codenicely1',
         'HOST':'localhost',
         'PORT':3306,
         'USER':'root',
         'PASSWORD':'admin',
     }
 }
+#SMTP SETTING
+
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+MAIL_DRIVER='smtp'
+#EMAIL_HOST_USER='nentertainmentbahar@gmail.com'
+EMAIL_HOST_USER='gyangee.20@gmail.com'
+EMAIL_HOST_PASSWORD='gyangee123!@#'
+EMAIL_USE_TLS=True
+
+
+
+
+
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
 # Password validation
