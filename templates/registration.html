@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load staticfiles %}
+<link href="{% static 'css_file/bootstrap.min.css'%}" rel="stylesheet" id="bootstrap-css">
+<link href="{% static 'css_file/custom_css.css' %}" rel="stylesheet">
+<script src="{% static 'js_file/bootstrap.min.js'%}"></script>
+<script src="{% static 'js_file/jquery.min.js'%}"></script>
+<link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="{% static 'js_file/Reg_validation.js' %}" ></script>
+<!------ Include the above in your HEAD tag ---------->
+<style>
+    tr{
+        padding-top: 5px;
+    }
+
+  article, aside, figure, footer, header, hgroup,
+  menu, nav, section { display: block; }
+</style>
+<script>
+    function myFunction(form){
+     var mobile = form.mobile.value;
+     var name = form.username.value;
+     var email = form.email.value;
+     var dob =form.dob.value;
+     if(name == null || name == "" ){
+        alert("Plz Enter Name....! ");
+        form.username.focus();
+        return false;
+        }
+    else if(name.length < 5 || name.length > 20){
+        alert("Plz Enter  min 5 and max 20 character");
+        form.username.focus();
+        return false;
+    }
+
+    //email verifivation
+
+      if(email ==  "") {
+        alert("Enter Email ID");
+        form.email.focus();
+        return false;
+     }
+  //dob validation
+        if(dob == ""){
+         alert("select Date of Birth..");
+         form.dob.focus();
+         return false;
+        }
+
+
+    if(mobile == ""){
+            alert("Plz Enter the Mobile No.");
+            //document.getElementById("userid").innerHTML="Plz Enter the Mobile No.";
+            form.mobile.focus();
+            return false;
+        }
+        if(mobile.length >10 || mobile.length <10){
+            alert("Mobile No. must be 10 Digit");
+            //document.getElementById("userid").innerHTML="Mobile No. must be 10 Digit";
+            form.mobile.focus();
+            return false;
+        }
+
+    //password Validation
+    var filter1 = /[a-z]/g;
+    var filter4 = /[A-Z]/g;
+    var filter2 = /[@$,<>#:?_*&;]/g;
+    var filter3 = /[0-9]/g;
+    var pwd = form.pwd1.value;
+    if(form.pwd1.value != "" && form.pwd1.value == form.pwd2.value) {
+        if (form.pwd1.value.length < 6) {
+            alert("Error: Password must contain at least six characters!");
+            form.pwd1.focus();
+            return false;
+        }
+        if (pwd.match(filter1) && pwd.match(filter4) && pwd.match(filter2) && pwd.match(filter1) && pwd.match(filter3)) {
+                alert("valid");
+
+
+            }
+             else
+            {
+                alert("Enter One UpperCase One LowerCase One Digit and One Special Character....!");
+                form.pwd1.focus();
+                return false;
+            }
+
+        if (form.pwd1.value == form.username.value) {
+            alert("Error: Password must be different from Username!");
+            form.pwd1.focus();
+            return false;
+        }
+    }
+        else{
+        alert("Not Match Re-Password in Password Field ");
+        form.pwd1.focus();
+        return false;
+       }
+
+       return true;
+    }
+
+</script>
+    <style>
+       .blah{
+           width: 50px;
+           height: 50px;
+       }
+        .bigblah{
+            position: absolute;
+            width: 0px;
+            -webkit-transition: width 0.3s linear 0s;
+            transition: width 0.3s linear 0s ;
+            z-index: 10;
+        }
+        .blah:hover + .bigblah{
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+	<div id="login">
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-8  col-md-offset-4">
+                <div class="login-box col-md-12" style="margin-top: 20px; height: 525px;">
+                    <form id="login-form" class="form" action="/datastore/" method="post" onsubmit="return myFunction(this)">
+                         {% csrf_token %}
+                        <h3 class="text-center text-info">Registration Here...!</h3>
+                        <hr style="height: 5px;color: #28a745;font-weight: bold;">
+                        <table>
+
+                            <tr>
+                                <td>Select Image :</td>
+                                <td style="padding-left: 20px;">
+                                    <input type='file' onchange="readURL(this);" name="filename" id="filename" />
+                                    <img id="blah"  src="#" class="blah"  />
+                                    <!--<img   src="#" class="bigblah" />-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Name :</td>
+                                <td><input type="text" name="username" id="username" class="form-control" placeholder="Enter Name" ></td>
+
+                            </tr>
+
+                            <tr>
+                                <td>Email :</td>
+                                <td><input type="email" name="email" id="email" class="form-control" placeholder="Enter Email"  ></td>
+                            </tr>
+                            <tr>
+                                <td>Mobile :</td>
+                                <td><input type="number" name="mobile" id="mobile" class="form-control" placeholder="Enter Mobile"></td>
+                            </tr>
+                            <tr>
+                                <td>DOB :</td>
+                                <td><input type="date" value="2005-01-01" min="1905-01-01" max="2005-01-01" name="dob" id="dob" class="form-control" placeholder="Date of Borth" ></td>
+                            </tr>
+                            <tr>
+                                <td>Password :</td>
+                                <td><input type="password" id="pwd1" name="pwd1" class="form-control"  placeholder="Enter Password"></td>
+                            </tr>
+                            <tr>
+                                <td>C_Password :</td>
+                                <td><input type="password" name="pwd2" id="pwd2" class="form-control" placeholder="Conform Password"></td>
+                            </tr>
+                        </table>
+                        <br>
+                        <div class="form-group">
+                            <input type="submit" name="submit" class="btn btn-info btn-md btn-block" value="Register">
+                        </div>
+                        <span style="color: #28a745;font-weight: bold;font-size: 20px">{{ status }}</span>
+                        <span style="float: right;font-size: 20px;font-weight: bold;"><a href="/login/">GoTo Login Page</a> </span>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

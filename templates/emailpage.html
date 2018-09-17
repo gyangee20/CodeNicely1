@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>Email pge</title>
+    <link rel="stylesheet " href="{% static 'css_file/bootstrap.min.css' %}">
+
+</head>
+<body bgcolor="yellow">
+  <div class="container">
+      <div class="row">
+
+          <div class="form-group">
+          <div class="thumbnail">
+
+            {% csrf_token %}
+              {% for d in rec %}
+                  <form action="/mail_process/" method="post">
+              <h1>One time password Send to Registration Email Address</h1>
+              <input type="hidden" name="otp" value="{{ otp }}">
+              <input type="hidden" name="otp_email" value="{{ d.email }}">
+              <input type="hidden" name="otp_mobile" value="{{ d.mobile }}">
+              <input type="submit" value="Proceed" style="float: left;margin-left: 10px;" class="btn btn-primary btn-sm" name="Proceed">
+              {% comment %}<a href="/resend_otp/?mob={{ d.mobile }}& otp={{ otp }}"  class="btn btn-primary btn-sm">Resend</a>{% endcomment %}
+              </form>
+                  <form action="/resend_otp/" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="re_otp" value="{{ otp }}">
+                  <input type="hidden" name="re_email" value="{{ d.email }}">
+                  <input type="hidden" name="re_mobile" value="{{ d.mobile }}">
+                  <input type="submit" value="Resend" style="float: left;margin-left: 15px;" class="btn btn-primary btn-sm">
+                  </form>
+              {% endfor %}
+
+          </div>
+          </div>
+
+      </div>
+  </div>
+</body>
+</html>

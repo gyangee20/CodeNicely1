@@ -53,7 +53,7 @@
         <div id="login-row" class="row justify-content-center ">
             <div id="login-column" class="col-md-8  ">
                 <div class="login-box col-md-12" style="height: 430px">
-                    <form id="login-form" class="form" action="//" method="post" onsubmit="return ValidateUser(this)">
+                    <form id="login-form" class="form" action="/user_login/" method="post" onsubmit="return ValidateUser(this)">
                         {% csrf_token %}
                         <h3 class="text-center text-info"><font face="chiller" size="10" color="fuchsia">Login</font></h3>
                         <div class="form-group">
@@ -81,7 +81,12 @@
                             <a href="/registration/" class="text-info">Register here</a>
                         </div>
 
+                        {% for i in data %}
+                        <input type="hidden" value="{{ i.otp }}" name="otpdata">
+
+                    {% endfor %}
                     </form>
+
 
                 </div>
             </div>

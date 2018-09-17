@@ -1,0 +1,64 @@
+<html>
+ <head>
+     {% load staticfiles %}
+     <title>Dashboard</title>
+     <link rel="stylesheet" href="{% static 'css_file/bootstrap.min.css'  %}">
+ <style>
+     body{
+         background-color: #d58512;
+     }
+ </style>
+ </head>
+ <body >
+   <div class="container">
+       <form action="/update_profile/" method="post">
+           {% csrf_token %}
+           {% for x in data %}
+        <table align="center" border="1" cellspacing="10" cellpadding="10" style="font-weight: bold;font-size: 15px;margin-top: 50px;" width="500">
+        <tr>
+            <td colspan="2" style="font-size: 20px;font-weight: bold;color:blue;background-color:greenyellow;text-align: center">Update Profile....!</td>
+        </tr>
+        <tr>
+            <td>Mobile :</td><td>{{x.mobile }}
+            <input type="hidden" name="mobile" value="{{ x.mobile }}" class="form-control"></td>
+        </tr>
+        <tr>
+            <td>Name :</td>
+            <td><input type="text" name="name" value="{{ x.name }}" class="form-control"></td>
+        </tr>
+        <tr>
+            <td>Email :</td>
+            <td><input type="email" name="email" value="{{ x.email }}" class="form-control"></td>
+        </tr>
+        <tr>
+            <td>DOB :</td>
+            <td><input type="date" name="dob" value="{{ x.dob }}" class="form-control"></td>
+        </tr>
+        <tr>
+            <td>Password :</td>
+            <td><input type="password" value="{{ x.password }}" name="password" class="form-control"></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center"><input type="submit" value="Update" class="btn btn-success btn-block"></td>
+        </tr>
+        {% comment %}
+        <tr>
+            <td>
+               {% for r in rec %}
+                   <input type="hidden" value="{{ r.otp }}" name="data_otp">
+                   {% endfor %}
+            </td>
+        </tr>
+        {% endcomment %}
+       </table>
+            {% endfor %}
+       </form>
+     {{ status }}
+   </div>
+
+
+
+
+
+ </body>
+</html>
